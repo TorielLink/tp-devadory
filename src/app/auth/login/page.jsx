@@ -14,7 +14,7 @@ export default function Login() {
         e.preventDefault();
         try {
             await logInUser(username, password);
-            router.push('/dashboard');
+            router.push('/projects');
         } catch (err) {
             setError('Error when login: ' + err.message);
         }
