@@ -2,7 +2,7 @@ import Parse from '../config/parseConfig';
 
 export const Project = Parse.Object.extend("Project");
 
-export const createProject = (name, description, dueDate, status, ownerEmail) => {
+export const createProject = (name, description, dueDate, status, ownerId) => {
     const project = new Project();
 
     // On vérifie si le statut est valides
@@ -13,7 +13,7 @@ export const createProject = (name, description, dueDate, status, ownerEmail) =>
 
     // Le champ 'owner' doit pointer vers un objet utilisateur ('user').
     const owner = new Parse.User();
-    owner.setEmail(ownerEmail); // Je pars du principe que l'identifiant de l'utilisateur est l'email.
+    owner.id = ownerId; // L'ID est généré automatiquement.
 
     project.set("name", name);
     project.set("description", description);
