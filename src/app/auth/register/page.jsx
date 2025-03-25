@@ -1,10 +1,10 @@
 "use client"; // Nécessaire pour utiliser useRouter qui est un hook qui ne fonctionne que dans un composant client
 
 import { useState } from 'react';
-import { signUpUser } from '@/services/authService';
+import { registerUser } from '@/services/authService';
 import { useRouter } from 'next/navigation';
 
-export default function SignUp() {
+export default function Register() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,10 +14,10 @@ export default function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await signUpUser(username, email, password);
+            await registerUser(username, email, password);
             await router.push('/login');
         } catch (err) {
-            setError('Error when registering: ' + err.message);
+            setError('Erreur pendant l\'inscription : ' + err.message);
         }
     };
 
