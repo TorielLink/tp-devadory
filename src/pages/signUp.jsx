@@ -1,6 +1,8 @@
+"use client"; // Nécessaire pour utiliser useRouter qui est un hook qui ne fonctionne que dans un composant client
+
 import { useState } from 'react';
 import { signUpUser } from '@/services/authService';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
     const [username, setUsername] = useState('');

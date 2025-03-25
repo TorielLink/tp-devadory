@@ -1,5 +1,7 @@
+"use client"; // Nécessaire pour utiliser useRouter qui est un hook qui ne fonctionne que dans un composant client
+
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { logOutUser } from '@/services/authService';
 
 export default function Logout() {
