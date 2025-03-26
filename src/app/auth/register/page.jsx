@@ -22,38 +22,46 @@ export default function Register() {
     };
 
     return (
-        <div>
-            <h2>Inscription</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="bg-white p-8 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold text-center mb-6">Inscription</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label>Nom d'utilisateur</label>
+                    <label className="block text-sm font-medium text-gray-700">Nom d'utilisateur</label>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
+                        className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
                 <div>
-                    <label>Email</label>
+                    <label className="block text-sm font-medium text-gray-700">Email</label>
                     <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
+                        className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
                 <div>
-                    <label>Mot de passe</label>
+                    <label className="block text-sm font-medium text-gray-700">Mot de passe</label>
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
-                {error && <div style={{ color: 'red' }}>{error}</div>}
-                <button type="submit">S'inscrire</button>
+                {error && <div className="text-red-500 text-sm">{error}</div>}
+                <button
+                    type="submit"
+                    className="w-full bg-blue-500 text-white p-3 mt-4 rounded-md hover:bg-blue-600 transition"
+                >
+                    S'inscrire
+                </button>
             </form>
         </div>
     );
