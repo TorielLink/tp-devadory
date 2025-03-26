@@ -42,10 +42,11 @@ export default function ProjectDetail() {
                     await deleteProject(id);
                     router.push("/projects");
                 }}
-                style={{ color: "red" }}
+                style={{color: "red"}}
             >
                 Supprimer
             </button>
+            <button onClick={() => router.push(`/projects/${id}/members`)}>Gérer les membres</button>
         </div>
     );
 }
