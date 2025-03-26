@@ -32,7 +32,6 @@ export default function ProjectList() {
                 {/* Titre de la page */}
                 <h2 className="text-3xl font-semibold text-center text-gray-900 mb-6">Mes projets</h2>
 
-                {/* Bouton pour créer un projet */}
                 <div className="flex justify-end mb-6">
                     <button
                         onClick={() => router.push("/projects/new")}

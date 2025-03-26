@@ -65,17 +65,24 @@ export default function ProjectDetail() {
                     </button>
 
                     <button
-                        onClick={handleDelete}
-                        className="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition-colors"
-                    >
-                        Supprimer
-                    </button>
-
-                    <button
                         onClick={() => router.push(`/projects/${id}/members`)}
                         className="bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-600 transition-colors"
                     >
                         Gérer les membres
+                    </button>
+
+                    <button
+                        onClick={() => router.push(`/projects/${id}/documents`)}
+                        className="bg-purple-500 text-white py-2 px-6 rounded-lg hover:bg-purple-600 transition-colors"
+                    >
+                        Voir les documents
+                    </button>
+
+                    <button
+                        onClick={handleDelete}
+                        className="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition-colors"
+                    >
+                        Supprimer
                     </button>
                 </div>
             </div>
