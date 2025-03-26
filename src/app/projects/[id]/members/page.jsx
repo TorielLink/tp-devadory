@@ -49,16 +49,26 @@ export default function ProjectMembersPage() {
 
                 {error && <p className="text-red-500 mb-4">{error}</p>}
 
-                <ul className="space-y-4 mb-6">
+                <ul className="space-y-4">
                     {members.map((member) => (
-                        <li key={member.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-md">
-                            <div>
-                                <p className="font-semibold text-gray-800">{member.get("username")}</p>
-                                <p className="text-sm text-gray-600">{member.get("email")}</p>
+                        <li key={member.id} className="flex items-center justify-between border-b pb-2">
+                            <div className="flex items-center space-x-4">
+                                {/* Affichage de l'avatar */}
+                                {member.get("avatar") ? (
+                                    <img
+                                        src={member.get("avatar").url()}
+                                        alt="Avatar"
+                                        className="w-10 h-10 rounded-full"
+                                    />
+                                ) : (
+                                    <></>
+                                )}
+                                <span>{member.get("username")} ({member.get("email")})</span>
                             </div>
+
                             <button
                                 onClick={() => handleRemoveMember(member.id)}
-                                className="text-red-500 hover:text-red-600"
+                                className="text-red-500 hover:text-red-700"
                             >
                                 Supprimer
                             </button>

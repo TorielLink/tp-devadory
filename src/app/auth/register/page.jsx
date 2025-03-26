@@ -8,14 +8,21 @@ export default function Register() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [avatar, setAvatar] = useState(null);
     const [error, setError] = useState('');
     const router = useRouter();
+
+    const handleFileChange = (e) => {
+        if (e.target.files.length > 0) {
+            setAvatar(e.target.files[0]); // stocke le fichier sélectionné
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await registerUser(username, email, password);
-            await router.push('/login');
+            await router.push('/projects');
         } catch (err) {
             setError('Erreur pendant l\'inscription : ' + err.message);
         }
@@ -54,6 +61,10 @@ export default function Register() {
                         required
                         className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
+                </div>
+                <div>
+                    <label>Avatar (optionnel)</label>
+                    <input type="file" accept="image/*" onChange={(e) => setAvatar(e.target.files[0])}/>
                 </div>
                 {error && <div className="text-red-500 text-sm">{error}</div>}
                 <button

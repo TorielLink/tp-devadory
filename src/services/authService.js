@@ -1,9 +1,17 @@
 import Parse from '../config/parseConfig';
 import {createUser} from "@/services/userService";
 
+// Récupère l'utilisateur actuel
+export const getCurrentUser = () => {
+    const user = Parse.User.current();
+    return user ? user : null;
+};
+
 // Inscription d'un utilisateur
-export async function registerUser(username, email, password) {
-    const user = createUser(username, email, password);
+export async function registerUser(username, email, password, avatarFile = null) {
+    const user = createUser(username, email, password, avatarFile);
+    console.log("Utilisateur créé :", user);
+    console.log("Est-ce une instance de Parse.User ?", user instanceof Parse.User);
 
     try {
         return await user.signUp();
