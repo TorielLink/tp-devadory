@@ -1,8 +1,15 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+First, create an .env.local file at the root of the project and add these environment variables:
 
-First, run the development server:
+```bash
+NEXT_PUBLIC_PARSE_APP_ID=o9OZaoz2GLyyEjjwGems0RtPe1sbZnBAvo8VxTga
+NEXT_PUBLIC_PARSE_JS_KEY=zrIYLi4dNXDdZIfbVN0ebro7v3ZwEpXwKDzTGexo
+NEXT_PUBLIC_PARSE_SERVER_URL=https://parseapi.back4app.com/
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -15,8 +22,6 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
