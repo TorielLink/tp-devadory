@@ -3,18 +3,28 @@ import {Project} from '@/entities/Project';
 import {getUserById, getUserByIdentifier} from "@/services/userService";
 
 // Crée un projet
-export async function createProject (name, description, dueDate, status, ownerId, teamMemberIds = [])  {
-    const project = new Project();
-
+export async function createProject (name, description, dueDate, status, ownerId, teamMemberIds = [],
+                                     coverImageFile = null)  {
     // On vérifie si le statut est valide
     const validStatus = ["À faire", "En cours", "Terminé"];
     if (!validStatus.includes(status)) {
         throw new Error("Statut invalide");
     }
-
     // Si l'utilisateur existe, on le récupère ; sinon, on le crée
+
     const owner = getUserById(ownerId);
     if (!owner) throw new Error("Utilisateur inconnu");
+    // Ajout des membres de l'équipe
+
+    if (teamMemberIds.length > 0) {
+        const relation = project.relation("teamMembers");
+        const userQuery = new Parse.Query(Parse.User);
+        userQuery.containedIn("objectId", teamMemberIds);
+        const users = await userQuery.find();
+        users.forEach(user => relation.add(user));
+    }
+
+    const project = new Project();
 
     project.set("name", name);
     project.set("description", description);
@@ -22,14 +32,9 @@ export async function createProject (name, description, dueDate, status, ownerId
     project.set("status", status);
     project.set("owner", owner);
 
-    // Ajout des membres de l'équipe
-    if (teamMemberIds.length > 0) {
-        const relation = project.relation("teamMembers");
-        const userQuery = new Parse.Query(Parse.User);
-        userQuery.containedIn("objectId", teamMemberIds);
-        const users = await userQuery.find();
-        users.forEach(user => relation.add(user));
-        //TODO: les créer s'ils n'existent pas
+    if (coverImageFile) {
+        const coverImage = new Parse.File(coverImageFile.name, coverImageFile);
+        project.set("coverImage", coverImage);
     }
 
     return project.save();
@@ -59,7 +64,7 @@ export async function getProjectById(projectId) {
 
 // Crée un nouveau projet
 export async function createNewProject(name, description, dueDate, status, ownerId, teamMemberIds) {
-    const project = createProject(name, description, dueDate, status, ownerId, teamMemberIds);
+    const project = createProject(name, description, dueDate, status, ownerId, teamMemberIds, coverImageFile);
     try {
         return await project.save();
     } catch (error) {

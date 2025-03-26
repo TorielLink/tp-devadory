@@ -2,11 +2,16 @@ import Parse from "../config/parseConfig";
 import { User } from "@/entities/User";
 
 // Crée un nouvel utilisateur
-export const createUser = async (username, email, password) => {
+export const createUser = async (username, email, password, avatarFile = null) => {
     const user = new User();
     user.set("username", username);
     user.set("email", email);
     user.set("password", password);
+
+    if (avatarFile) {
+        const parseFile = new Parse.File(avatarFile.name, avatarFile);
+        user.set("avatar", parseFile);
+    }
 
     try {
         return user;

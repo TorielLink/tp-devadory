@@ -1,11 +1,9 @@
 import Parse from '../config/parseConfig';
+import {createUser} from "@/services/userService";
 
 // Inscription d'un utilisateur
 export async function registerUser(username, email, password) {
-    const user = new Parse.User();
-    user.set("username", username);
-    user.set("email", email);
-    user.set("password", password);
+    const user = createUser(username, email, password);
 
     try {
         return await user.signUp();
