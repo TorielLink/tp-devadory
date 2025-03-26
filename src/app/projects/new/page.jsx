@@ -10,9 +10,16 @@ export default function NewProject() {
     const [description, setDescription] = useState("");
     const [dueDate, setDueDate] = useState("");
     const [status, setStatus] = useState("À faire");
+    const [coverImage, setCoverImage] = useState(null);
     const [error, setError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
+
+    const handleFileChange = (e) => {
+        if (e.target.files.length > 0) {
+            setCoverImage(e.target.files[0]);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,7 +30,7 @@ export default function NewProject() {
         if (!currentUser) return;
 
         try {
-            await createNewProject(name, description, new Date(dueDate), status, currentUser.id);
+            await createNewProject(name, description, new Date(dueDate), status, currentUser.id, coverImage);
             router.push("/projects");
         } catch (err) {
             setError("Erreur lors de la création du projet : " + err.message);
@@ -83,6 +90,19 @@ export default function NewProject() {
                             onChange={(e) => setDueDate(e.target.value)}
                             required
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <label htmlFor="coverImage" className="block text-gray-700 font-medium mb-2">
+                            Image de couverture (optionnelle)
+                        </label>
+                        <input
+                            id="coverImage"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
 

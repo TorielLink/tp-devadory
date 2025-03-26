@@ -49,6 +49,13 @@ export default function ProjectList() {
                             className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-lg transition-shadow"
                             onClick={() => router.push(`/projects/${project.id}`)}
                         >
+                            {project.get("coverImage") && (
+                                <img
+                                    src={project.get("coverImage").url()}
+                                    alt="Cover"
+                                    className="w-full h-40 object-cover rounded-md mb-2"
+                                />
+                            )}
                             <h3 className="text-xl font-semibold text-gray-900">{project.get("name")}</h3>
                             <p className="text-gray-600">{project.get("status")}</p>
                         </div>

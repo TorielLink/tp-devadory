@@ -44,6 +44,13 @@ export default function ProjectDetail() {
     return (
         <div className="bg-gray-100 min-h-screen flex items-center justify-center py-6 px-4">
             <div className="bg-white rounded-lg shadow-lg p-8 max-w-3xl w-full">
+                {project.get("coverImage") && (
+                    <img
+                        src={project.get("coverImage").url()}
+                        alt="Cover"
+                        className="w-full h-64 object-cover rounded-md mb-4"
+                    />
+                )}
                 <h2 className="text-4xl font-semibold text-gray-900 mb-4">{project.get("name")}</h2>
 
                 <p className="text-lg text-gray-700 mb-4">{project.get("description")}</p>

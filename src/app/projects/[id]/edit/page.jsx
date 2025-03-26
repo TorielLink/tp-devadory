@@ -9,11 +9,14 @@ export default function EditProject() {
     const [description, setDescription] = useState("");
     const [dueDate, setDueDate] = useState("");
     const [status, setStatus] = useState("À faire");
+    const [coverImage, setCoverImage] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
+
     const { id } = useParams();
+
 
     useEffect(() => {
         async function fetchProject() {
@@ -36,12 +39,11 @@ export default function EditProject() {
 
         fetchProject();
     }, [id]);
-
     const handleUpdate = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        setError("");
 
+        setError("");
         try {
             await updateProject(id, { name, description, dueDate: new Date(dueDate), status });
             router.push(`/projects/${id}`);
@@ -49,6 +51,20 @@ export default function EditProject() {
             setError("Erreur lors de la mise à jour du projet : " + err.message);
         } finally {
             setIsSubmitting(false);
+        }
+
+    };
+
+    const handleFileChange = (e) => {
+        if (e.target.files.length > 0) {
+            setCoverImage(e.target.files[0]);
+        }
+    };
+
+    const handleUpdateCover = async () => {
+        if (coverImage) {
+            await updateProjectCoverImage(project.id, coverImage);
+            alert("Image mise à jour !");
         }
     };
 
@@ -123,6 +139,11 @@ export default function EditProject() {
                             <option>Terminé</option>
                         </select>
                     </div>
+
+                    <input type="file" accept="image/*" onChange={handleFileChange} className="my-2"/>
+                    <button onClick={handleUpdateCover} className="bg-blue-500 text-white px-4 py-2 rounded">
+                        Mettre à jour l’image
+                    </button>
 
                     <button
                         type="submit"
